@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: localhost
--- Thời gian đã tạo: Th10 06, 2018 lúc 02:28 CH
--- Phiên bản máy phục vụ: 5.7.17-log
--- Phiên bản PHP: 5.6.30
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 26, 2020 lúc 12:52 PM
+-- Phiên bản máy phục vụ: 10.4.14-MariaDB
+-- Phiên bản PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -40,7 +41,8 @@ INSERT INTO `danhmuc` (`iddm`, `tendm`, `path`) VALUES
 (6, 'Đề cương', 'images/de-cuong.jpg'),
 (7, 'Đề thi - Kiểm tra', 'images/de thi.png'),
 (8, 'Đồ án - Luận văn', 'images/do an-luan van.jpg'),
-(9, 'Văn bản pháp luật', 'images/vanban-phapluat.jpg');
+(9, 'Văn bản pháp luật', 'images/vanban-phapluat.jpg'),
+(10, 'cntt', 'images/toycars1.png');
 
 -- --------------------------------------------------------
 
@@ -52,8 +54,8 @@ CREATE TABLE `star` (
   `id` int(11) NOT NULL,
   `idtl` int(3) NOT NULL,
   `username` varchar(225) COLLATE utf8_vietnamese_ci NOT NULL,
-  `rate` int(11) NOT NULL DEFAULT '0',
-  `dt_rated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `rate` int(11) NOT NULL DEFAULT 0,
+  `dt_rated` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
@@ -61,9 +63,13 @@ CREATE TABLE `star` (
 --
 
 INSERT INTO `star` (`id`, `idtl`, `username`, `rate`, `dt_rated`) VALUES
-(9, 12, 'admin', 5, '2018-11-02 07:51:48'),
+(9, 12, 'admin', 3, '2018-11-02 07:51:48'),
 (10, 8, 'admin', 3, '2018-11-02 07:52:01'),
-(11, 5, 'admin', 1, '2018-11-02 07:52:05');
+(11, 5, 'admin', 4, '2018-11-02 07:52:05'),
+(12, 12, 'admin1', 5, '2018-11-02 07:52:43'),
+(13, 8, 'admin1', 2, '2018-11-02 07:52:50'),
+(14, 5, 'admin1', 4, '2018-11-02 07:52:54'),
+(16, 13, 'admin', 3, '2018-11-04 14:36:51');
 
 -- --------------------------------------------------------
 
@@ -77,9 +83,9 @@ CREATE TABLE `tailieu` (
   `iddm` int(3) NOT NULL,
   `tentl` varchar(250) COLLATE utf8_vietnamese_ci NOT NULL,
   `path` varchar(250) COLLATE utf8_vietnamese_ci NOT NULL,
-  `soluotdl` int(3) DEFAULT '0',
-  `luotxemtl` int(3) DEFAULT '0',
-  `ngayupload` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `soluotdl` int(3) DEFAULT 0,
+  `luotxemtl` int(3) DEFAULT 0,
+  `ngayupload` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
 --
@@ -87,18 +93,16 @@ CREATE TABLE `tailieu` (
 --
 
 INSERT INTO `tailieu` (`idtl`, `username`, `iddm`, `tentl`, `path`, `soluotdl`, `luotxemtl`, `ngayupload`) VALUES
-(5, 'admin', 6, 'Đề cương ATMMT', 'uploads/An-toàn-MMT.doc', 2, 22, '2018-11-04 02:21:04'),
+(5, 'admin', 6, 'Đề cương ATMMT', 'uploads/An-toàn-MMT.doc', 2, 16, '2018-11-04 02:21:04'),
 (6, 'admin', 8, 'CSDL suy diễn', 'uploads/Báo cáo tìm hiểu CSDL suy diễn và ứng dụng.docx', 0, 1, '2018-11-04 02:21:04'),
-(7, 'admin', 9, 'Bổ sung BLHS 2015', 'uploads/ktra1.doc', 2, 4, '2018-11-04 02:21:04'),
-(8, 'admin', 6, 'Mật mã cổ điển', 'uploads/Mật mã cổ điển.docx', 2, 11, '2018-11-04 02:21:04'),
-(9, 'admin', 8, 'Tấn công Web', 'uploads/Báo cáo đồ án chuyên ngành.docx', 0, 1, '2018-11-04 02:21:04'),
-(10, 'admin', 7, 'Đề kiểm tra số 1', 'uploads/DeSo1.doc', 0, 1, '2018-11-04 02:21:04'),
+(7, 'admin', 9, 'Bổ sung BLHS 2015', 'uploads/ktra1.doc', 0, 1, '2018-11-04 02:21:04'),
+(8, 'admin', 6, 'Mật mã cổ điển', 'uploads/Mật mã cổ điển.docx', 2, 12, '2018-11-04 02:21:04'),
+(9, 'admin', 8, 'Tấn công Web server', 'uploads/Báo cáo đồ án chuyên ngành.docx', 0, 1, '2018-11-04 02:21:04'),
+(10, 'admin', 7, 'Đề kiểm tra số 1', 'uploads/DeSo1.doc', 0, 0, '2018-11-04 02:21:04'),
 (11, 'admin', 7, 'Đề kiểm tra số 2', 'uploads/DeSo2.doc', 0, 1, '2018-11-04 02:21:04'),
-(12, 'admin', 6, 'Chứng thư số', 'uploads/Chung-thu-so.doc', 5, 18, '2018-11-04 02:21:04'),
-(19, 'admin', 8, 'RBAC', 'uploads/dieukhientruycapRBAC.docx', 0, 0, '2018-11-06 13:12:29'),
-(21, 'admin', 9, 'Luật kinh tế', 'uploads/luatkinhte.doc', 1, 0, '2018-11-06 13:31:33'),
-(22, 'admin', 9, 'Luật an ninh mạng', 'uploads/anninhmang.doc', 0, 0, '2018-11-06 13:31:53'),
-(23, 'admin', 8, 'Đa phương tiện', 'uploads/Video provides a powerful.docx', 1, 0, '2018-11-06 13:33:32');
+(12, 'admin', 6, 'Chứng thư số', 'uploads/Chung-thu-so.doc', 4, 16, '2018-11-04 02:21:04'),
+(13, 'admin', 6, 'kkkk', 'uploads/uploads_ktra1.doc', 0, 4, '2018-11-04 04:04:41'),
+(16, 'minhchau', 10, 'debian', 'uploads/TFTP-DEBIAN.docx', 1, 3, '2020-11-26 10:22:33');
 
 -- --------------------------------------------------------
 
@@ -111,7 +115,7 @@ CREATE TABLE `tbl_comment` (
   `parent_comment_id` int(11) DEFAULT NULL,
   `comment` varchar(200) COLLATE utf8_vietnamese_ci NOT NULL,
   `username` varchar(225) COLLATE utf8_vietnamese_ci NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `idtl` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
@@ -120,8 +124,7 @@ CREATE TABLE `tbl_comment` (
 --
 
 INSERT INTO `tbl_comment` (`comment_id`, `parent_comment_id`, `comment`, `username`, `date`, `idtl`) VALUES
-(126, 0, 'hello,xin chao cac ban', 'admin', '2018-11-06 05:55:35', 5),
-(127, 126, 'commant sau', 'admin', '2018-11-06 06:40:43', 5);
+(125, 0, 'hshvhs', 'minhchau', '2020-11-26 04:59:47', 5);
 
 -- --------------------------------------------------------
 
@@ -144,9 +147,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`username`, `password`, `name`, `email`, `role`) VALUES
 ('admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrator', 'administrator@gmail.com', 1),
 ('admin1', 'e00cf25ad42683b3df678c61f42c6bda', 'admin1', 'admin1@gmail.com', 1),
-('user1', '24c9e15e52afc47c225b757e7bee1f9d', 'user1', 'user1@gmail.com', 2),
-('user2', '7e58d63b60197ceb55a1c487989a3720', 'user2', 'user2@gmail.com', 2),
-('user3', '92877af70a45fd6a2ed7fe81e1236b78', 'user3', 'user3@gmail.com', 2);
+('minhchau', '25d55ad283aa400af464c76d713c07ad', 'minh chau', 'chauchau@gmail.com', 2);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -196,22 +197,26 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `danhmuc`
 --
 ALTER TABLE `danhmuc`
-  MODIFY `iddm` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `iddm` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT cho bảng `star`
 --
 ALTER TABLE `star`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT cho bảng `tailieu`
 --
 ALTER TABLE `tailieu`
-  MODIFY `idtl` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `idtl` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT cho bảng `tbl_comment`
 --
 ALTER TABLE `tbl_comment`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
@@ -236,6 +241,7 @@ ALTER TABLE `tailieu`
 ALTER TABLE `tbl_comment`
   ADD CONSTRAINT `tbl_comment_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`),
   ADD CONSTRAINT `tbl_comment_ibfk_2` FOREIGN KEY (`idtl`) REFERENCES `tailieu` (`idtl`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
